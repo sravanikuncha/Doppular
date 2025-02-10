@@ -111,8 +111,8 @@ settingsRouter.post('/emailIdUpdate',async(req,res)=>{
     console.log(userId);
     const email=req.body.email;
     try{
-      const userData=await userModel.findOneAndUpdate({_id:userId},{email},{new:true});
-      const token = generateToken({_id:userId,email});
+      const userData=await userModel.findOneAndUpdate({_id:userId},{email},{new:true}).populate('profile');
+      const token = generateToken(userData);
       res.cookie('token',token);
       res.status(200).send({'success':true,"message":'Email Updated successfully',"result":userData})
     }catch(err){
