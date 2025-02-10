@@ -50,7 +50,7 @@ settingsRouter.get("/",async(req,res)=>{
 
     //support 
     settings.Support[0]["Terms Of Use"]=termsOfUse;
-    
+    settings.Support[0]["Privacy Policy"]=privacyPolicy;
 
     res.status(200).send(settings);
 });
