@@ -16,6 +16,7 @@ const generateToken=(userData)=>{
         return token;
     }catch(err){
         console.log("generate token "+err);
+        return err;
     }
 }
 

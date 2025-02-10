@@ -165,6 +165,7 @@ settingsRouter.post('/logout',(req,res)=>{
     res.status(200).send({'success':true,"message":'Logout Successful'});
 })
 
+
 settingsRouter.post('/sendProfiles',async (req,res)=>{
     const {profileId,username}=req;
     const sharedProfiles=req.body.profiles;
