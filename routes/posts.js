@@ -106,7 +106,7 @@ postRouter.post('/toggleLike',async(req,res)=>{
 
         //add into alert profileId --loggedinuser  result.profile is target /receiver post
 
-        if(profileId!=result.profile._id && onOrOff=="ON"){
+        if(new ObjectId(profileId)!=result.profile._id && onOrOff=="ON"){
             alertSave("you liked post of ","liked your post",result.profile._id,profileId,result.profile.username,username,postId);
         }else if(onOrOff=="OFF"){
             const alertDeleteData=await alertModel.deleteOne({postId:postId});
