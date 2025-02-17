@@ -192,13 +192,13 @@ settingsRouter.post('/sendProfiles',async (req,res)=>{
             //form input receivermsg
             const receiverMsg={
                 msg:"Shared Profile By",
-                profileId,
+                profileId:new ObjectId(profileId),
                 username
             }
 
             console.log("rec")
             const alertMsg={
-                sender:profileId,
+                sender:new ObjectId(profileId),
                 receiver:new ObjectId(eachProfileId),
                 senderMsg,
                 receiverMsg
