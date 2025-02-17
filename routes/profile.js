@@ -67,7 +67,7 @@ profileRouter.post('/openProfile',async(req,res)=>{
 
     //check targetprofileid is present in following array of profileid if following , send posts array .
     try{
-        const resultObj=await profileModel.findOne({_id:targetProfileId}).populate({path:'user',select:['-password']}); 
+        const resultObj=await profileModel.findOne({_id:targetProfileId,blockedByProfiles:profileId}).populate({path:'user',select:['-password']}); 
         const following=resultObj.following;
         const result = resultObj.toObject();
         if(following && following.includes(profileId)){
@@ -159,7 +159,7 @@ profileRouter.post('/blockProfile',async(req,res)=>{
         blockingProfileUpdates={...blockingProfileUpdates,$push:{blockedProfiles:targetProfileId}};
         let result=await profileModel.findByIdAndUpdate({_id:profileId},blockingProfileUpdates,{new:true});
 
-        blockingProfileUpdates=updateObj(targetProfileResult,profileId);
+        blockingProfileUpdates=updateObj(targetProfileResult,profileIds);
         blockingProfileUpdates={...blockingProfileUpdates,$push:{blockedByProfiles:profileId}};
         result=await profileModel.findByIdAndUpdate({_id:targetProfileId},blockingProfileUpdates,{new:true});
         res.status(200).send({'success':true,"message":'Blocked successfully'});
