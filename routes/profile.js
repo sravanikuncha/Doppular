@@ -159,7 +159,7 @@ profileRouter.post('/blockProfile',async(req,res)=>{
         blockingProfileUpdates={...blockingProfileUpdates,$push:{blockedProfiles:targetProfileId}};
         let result=await profileModel.findByIdAndUpdate({_id:profileId},blockingProfileUpdates,{new:true});
 
-        blockingProfileUpdates=updateObj(targetProfileResult,profileIds);
+        blockingProfileUpdates=updateObj(targetProfileResult,profileId);
         blockingProfileUpdates={...blockingProfileUpdates,$push:{blockedByProfiles:profileId}};
         result=await profileModel.findByIdAndUpdate({_id:targetProfileId},blockingProfileUpdates,{new:true});
         res.status(200).send({'success':true,"message":'Blocked successfully'});
