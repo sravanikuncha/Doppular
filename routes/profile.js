@@ -68,15 +68,20 @@ profileRouter.post('/openProfile',async(req,res)=>{
     //check targetprofileid is present in following array of profileid if following , send posts array .
     try{
         const resultObj=await profileModel.findOne({_id:targetProfileId,blockedByProfiles:{ $nin: [profileId] }}).populate({path:'user',select:['-password']}); 
-        const following=resultObj.following;
-        const result = resultObj.toObject();
-        if(following && following.includes(profileId)){
-            result.isFollowing="Y";
-        }else{
-            result['isFollowing']="N";
-        }
-        console.log(result)
-        res.status(200).send({'success':true,"message":'Open Profile API successful',"result":result});
+        if(resultObj){
+            const following=resultObj.following;
+            const result = resultObj.toObject();
+            if(following && following.includes(profileId)){
+                result.isFollowing="Y";
+            }else{
+                result['isFollowing']="N";
+            }
+            console.log(result)
+            res.status(200).send({'success':true,"message":'Open Profile API successful',"result":result});
+       }else{
+        res.status(400).send({'success':false,"message":'Cannot open profile'});
+
+       }
     }catch(err){
         console.log(err);
         res.status(400).send({'success':false,"message":'Error Opening profile',"errorMsg":err});
