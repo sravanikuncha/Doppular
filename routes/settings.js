@@ -27,7 +27,7 @@ settingsRouter.get("/",async(req,res)=>{
     }).populate('user');
 
     profiles=profiles.filter((eachProfile)=>{
-        if(!eachProfile._id.includes(blockedProfiles)){
+        if(!blockedProfiles.includes(eachProfile._id)){
             return eachProfile;
         }
     });
