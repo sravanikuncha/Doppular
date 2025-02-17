@@ -21,11 +21,16 @@ settingsRouter.get("/",async(req,res)=>{
 
     //get all profiles except a particular profile.
     const profileId=userData.profile;
+    const blockedProfiles=userData.profile.blockedProfiles;
     let profiles=await profileModel.find({
         _id:{$ne:profileId},visibility:true
     }).populate('user');
 
-    // profiles=profiles.filter((eachProfile)=>eachProfile.user.visibility);
+    profiles=profiles.filter((eachProfile)=>{
+        if(!eachProfile._id.includes(blockedProfiles)){
+            return eachProfile;
+        }
+    });
     console.log(profiles);
 
     //your account setup done 

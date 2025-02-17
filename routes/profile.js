@@ -79,7 +79,7 @@ profileRouter.post('/openProfile',async(req,res)=>{
             console.log(result)
             res.status(200).send({'success':true,"message":'Open Profile API successful',"result":result});
        }else{
-        res.status(400).send({'success':false,"message":'Cannot open profile'});
+        res.status(400).send({'success':false,"message":'Cannot open profile',"result":result});
 
        }
     }catch(err){
